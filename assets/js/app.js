@@ -35,6 +35,9 @@ function newTweet(e) {
 
     //Add to the list
     tweetList.appendChild(li);
+
+    //Add to Loacl storage
+    addTweetLocalStorage(tweet);
 }
 
 //Removes the tweets from the DOM
@@ -42,4 +45,27 @@ function removeTweet(e) {
     if (e.target.classList.contains('remove-tweet')) {
         e.target.parentElement.remove();
     } 
+}
+
+//Adds the tweets into the Local STorage
+function addTweetLocalStorage(tweet) {
+    let tweets = getTweetsFromStorage();
+
+    //Add the tweet into the array
+    tweets.push(tweet);
+
+    //Convert tweet array into string
+    localStorage.setItem('tweets', JSON.stringify( tweets ));
+}
+
+function getTweetsFromStorage() {
+    let tweets;
+    const tweetsLS = localStorage.getItem('tweets');
+    //Get the values, if null is returned we create an empty array
+    if(tweetsLS === null) {
+        tweets = [];
+    } else {
+        tweets = JSON.parse( tweetsLS );
+    }
+    return tweets;
 }
