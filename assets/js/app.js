@@ -40,6 +40,11 @@ function newTweet(e) {
 
     //Add to Loacl storage
     addTweetLocalStorage(tweet);
+
+    //Print the alert
+    alert('Tweet Added');
+
+    this.reset();
 }
 
 //Removes the tweets from the DOM
@@ -107,9 +112,12 @@ function removeTweetLocalStorage (tweet) {
     const tweetDelete = tweet.substring( 0, tweet.length - 1);
 
     // loop throught the tweets and remove the tweet that is equal
-    tweets.forEach(function(tweetLS){
+    tweets.forEach(function(tweetLS, index){
         if (tweetDelete === tweetLS){
-            console.log ('yes');
+            tweets.splice(index, 1);
         }
     });
+
+    //Save the data
+    localStorage.setItem('tweets', JSON.stringify(tweets));
 }
